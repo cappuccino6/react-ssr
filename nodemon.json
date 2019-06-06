@@ -1,0 +1,11 @@
+{
+  "verbose": false,
+  "env": {
+    "NODE_ENV": "development",
+    "BABEL_ENV": "node"
+  },
+  "watch": ["server", "client"],
+  "execMap":{
+    "js": "babel-node"
+  }
+}

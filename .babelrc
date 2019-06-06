@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "react",
+    "es2015",
+    "stage-0"
+  ],
+  /*
+   * ssr 时需要 babel 编译 css
+   */
+  "plugins": ["css-modules-transform"]
+}

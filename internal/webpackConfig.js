@@ -5,6 +5,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StartServerPlugin = require('start-server-webpack-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 // const nodeExternals = require('webpack-node-externals')
 const ManifestPlugin = require('webpack-manifest-plugin')
 // const TerserPlugin = require('terser-webpack-plugin')
@@ -78,11 +79,7 @@ function createWebpackConfig (termimal) {
                     highlightCode: true,
                     presets: [
                       path.resolve(__dirname, './babel'),
-                      {
-                        // env: isProd ? 'production' : 'development',
-                        // target: isClient ? 'web' : 'node',
-                        // modern: isDev
-                      }
+                      {}
                     ]
                   }
                 }
@@ -138,7 +135,7 @@ function createWebpackConfig (termimal) {
       //   keyboard: true,
       //   signal: true
       // }),
-      new HtmlWebpackPlugin(
+      isClient && new HtmlWebpackPlugin(
         Object.assign(
           {},
           {
@@ -164,8 +161,10 @@ function createWebpackConfig (termimal) {
         )
       ),
       isDev && new webpack.HotModuleReplacementPlugin(),
-      isClient && new WebpackBar({ color: 'green', name: 'client' }),
-      !isClient && new WebpackBar({ color: 'yellow', name: 'server' }),
+      new WebpackBar({
+        color: isClient ? 'green' : 'yellow',
+        name: isClient ? 'client' : 'server'
+      }),
       isProd && new MiniCssExtractPlugin({
         filename: `${isDev ? '' : '/'}[name].[contenthash].css`
       }),
@@ -173,6 +172,7 @@ function createWebpackConfig (termimal) {
         writeToFileEmit: true,
         fileName: `manifest.json`
       }),
+      false && isClient && new OpenBrowserPlugin({ url: 'http://localhost:9001' })
     ].filter(Boolean),
     devServer: {
       allowedHosts: [".localhost"],
@@ -183,7 +183,8 @@ function createWebpackConfig (termimal) {
         'access-control-allow-origin': '*'
       },
       hot: true,
-      publicPath: '/client/'
+      publicPath: '',
+      historyApiFallback: true
     }
   }
 }

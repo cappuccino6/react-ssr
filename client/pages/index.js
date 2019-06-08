@@ -6,16 +6,16 @@ import UserCenter from './UserCenter'
 export default () => (
   <Switch>
     <Route
-      path="/"
-      component={Home}
-    />
-    <Route
       path="/home"
       component={Home}
     />
     <Route
       path="/usercenter"
       component={UserCenter}
+    />
+    <Route
+      path="/"
+      component={Home}
     />
   </Switch>
 )

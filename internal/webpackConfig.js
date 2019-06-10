@@ -4,7 +4,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const StartServerPlugin = require('start-server-webpack-plugin')
+const StartServerPlugin = require('start-server-webpack-plugin')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const ManifestPlugin = require('webpack-manifest-plugin')
@@ -130,11 +130,12 @@ function createWebpackConfig (termimal) {
       ]
     },
     plugins: [
-      // isDevServer && new StartServerPlugin({
-      //   name: 'server.js',
-      //   keyboard: true,
-      //   signal: true
-      // }),
+      /* 启动编译后的 js 文件 */
+      isDevServer && new StartServerPlugin({
+        name: 'main.js',
+        keyboard: true,
+        signal: true
+      }),
       isClient && new HtmlWebpackPlugin(
         Object.assign(
           {},

@@ -6,13 +6,14 @@
 const debug = require('debug')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const opn = require('opn')
+const open = require('open')
 const path = require('path')
 const webpackConfig = require(path.resolve('internal/webpackConfig'))
 // const config = require('config')
 const config = require(path.resolve(__dirname, '../package.json'))
 
 const log = debug('react-ssr:start')
+log('React:SSR')
 
 function compile (config) {
   let compiler
@@ -38,19 +39,17 @@ serverCompiler.watch(
     if (err || stats.hasErrors()) {
       console.error(err || stats.toJson('minimal'))
       return
+    } else {
+      open('http://localhost:9000')
     }
   }
 )
 
 // 启动 client 线的编译
 const clientConfig = webpackConfig('client')
-if (Object.keys(clientConfig.entry).length > 0) {
-  const clientCompiler = compile(clientConfig)
-  const clientDevServer = new WebpackDevServer(
-    clientCompiler,
-    clientConfig.devServer
-  )
-  clientDevServer.listen(config.project.devServer.port)
-} else {
-  log('No client side apps to compile.')
-}
+const clientCompiler = compile(clientConfig)
+const clientDevServer = new WebpackDevServer(
+  clientCompiler,
+  clientConfig.devServer
+)
+clientDevServer.listen(config.project.devServer.port)

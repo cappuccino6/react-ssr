@@ -6,7 +6,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className={css.root}>
-        123
+        <div onClick={() => {alert(123123)}}>点我</div>
         <Link to="/home">home</Link>
         <Link to="/usercenter">usercenter</Link>
       </div>

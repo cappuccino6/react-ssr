@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import {StaticRouter} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
-import routes from '../client/pages'
+import routes from 'client/pages'
 
 // 正则匹配模版中的 {{}}
 function renderTemplate(props) {

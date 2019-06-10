@@ -1,10 +1,3 @@
-// const Koa = require('koa')
-// const Router = require('koa-router')
-// const React = require('react')
-// const bodyParser = require('koa-bodyparser')
-// const { renderToString } = require('react-dom/server')
-
-
 import Koa from 'koa'
 import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
@@ -18,10 +11,11 @@ app.use(bodyParser({
 }))
 
 router.get('*', async ctx => {
-  // console.log('ctx====', ctx.req)
   ctx.body = renderApp(ctx, {})
 })
 
 app.use(router.routes())
 
-app.listen(9000)
+app.listen(9000, () => {
+  console.log('The server side rendering is running on port 9000')
+})

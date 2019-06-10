@@ -14,7 +14,6 @@ module.exports = {
   appPublic: resolveApp('public'),
   appInternal: resolveApp('internal'),
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('client/index.js'),
   appPackageJson: resolveApp('package.json'),
   appClient: resolveApp('client/index.js'),
   appServer: resolveApp('server/index.js'),

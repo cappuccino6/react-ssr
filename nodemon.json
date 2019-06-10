@@ -4,7 +4,7 @@
     "NODE_ENV": "development",
     "BABEL_ENV": "node"
   },
-  "watch": ["server", "client"],
+  "watch": ["client"],
   "execMap":{
     "js": "babel-node"
   }

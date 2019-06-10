@@ -3,10 +3,10 @@
 'use strict'
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StartServerPlugin = require('start-server-webpack-plugin')
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-// const nodeExternals = require('webpack-node-externals')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const StartServerPlugin = require('start-server-webpack-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
 const ManifestPlugin = require('webpack-manifest-plugin')
 // const TerserPlugin = require('terser-webpack-plugin')
 const WebpackBar = require('webpackbar')
@@ -18,7 +18,7 @@ const config = require('../package.json')
 
 function createEntry(termimal) {
   const isServer = termimal === 'server'
-  const mainEntry = isServer ? paths.appServer : paths.appIndexJs
+  const mainEntry = isServer ? paths.appServer : paths.appClient
   return isServer ? {
     main: mainEntry
   } : Object.assign({}, {main: mainEntry}, {
@@ -162,7 +162,7 @@ function createWebpackConfig (termimal) {
       ),
       isDev && new webpack.HotModuleReplacementPlugin(),
       new WebpackBar({
-        color: isClient ? 'green' : 'yellow',
+        color: isClient ? '#ff2124' : '#1151fe',
         name: isClient ? 'client' : 'server'
       }),
       isProd && new MiniCssExtractPlugin({
@@ -174,6 +174,11 @@ function createWebpackConfig (termimal) {
       }),
       false && isClient && new OpenBrowserPlugin({ url: 'http://localhost:9001' })
     ].filter(Boolean),
+
+    externals: [
+      isServer && nodeExternals()
+    ].filter(Boolean),
+
     devServer: {
       allowedHosts: [".localhost"],
       disableHostCheck: false,

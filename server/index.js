@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
+import packageJson from '../package.json'
 import { renderApp } from './App'
 
 const app = new Koa()
@@ -16,6 +17,6 @@ router.get('*', async ctx => {
 
 app.use(router.routes())
 
-app.listen(9000, () => {
-  console.log('The server side rendering is running on port 9000')
+app.listen(packageJson.project.port, () => {
+  console.log(`The server side rendering is running on port ${packageJson.project.port}`)
 })

@@ -7,10 +7,11 @@ module.exports = function createAlias () {
     {},
     {
       'base': base.get(),
-      'config':  path.resolve(base.get(), 'package.json'),
       'client':  path.resolve(base.get(), 'client'),
       'server':  path.resolve(base.get(), 'server'),
       'internal':  path.resolve(base.get(), 'internal'),
+      'utils':  path.resolve(base.get(), 'client/utils'),
+      'hocs':  path.resolve(base.get(), 'client/hocs'),
       'router':  path.resolve(base.get(), 'client/router'),
       'components': path.resolve(base.get(), 'client/components'),
       'pages': path.resolve(base.get(), 'client/pages'),

@@ -3,21 +3,18 @@
  * 启动两条编译流水线
  */
 'use strict'
-const debug = require('debug')
+const debug = require('debug')('REACT-SSR')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const open = require('open')
 const path = require('path')
 const webpackConfig = require(path.resolve('internal/webpackConfig'))
-// const config = require('config')
 const config = require(path.resolve(__dirname, '../package.json'))
-
-const log = debug('react-ssr:start')
-log('React:SSR')
 
 function compile (config) {
   let compiler
   try {
+    debug('compile.')
     compiler = webpack(config)
   } catch (e) {
     console.error(e)
@@ -40,7 +37,7 @@ serverCompiler.watch(
       console.error(err || stats.toJson('minimal'))
       return
     } else {
-      open('http://localhost:9000')
+      open(`http://localhost:${config.project.port}`)
     }
   }
 )

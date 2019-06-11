@@ -5,8 +5,8 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        HomePagessss
         <Header />
+        HomePagessss
       </div>
     );
   }

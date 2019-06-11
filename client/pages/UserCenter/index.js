@@ -5,8 +5,8 @@ class UserCenter extends React.Component {
   render() {
     return (
       <div>
-        UserCenterPage
         <Header />
+        UserCenterPage
       </div>
     );
   }

@@ -1,14 +1,25 @@
-# REACT-SSR
+# React server side rendering framework
 
-React server side rendering framework
+<p>
+  <a href="https://travis-ci.com/jgeschwendt/serverless-react-ssr/">
+    <img alt="Travis Badge" src="https://travis-ci.com/jgeschwendt/serverless-react-ssr.svg?branch=master" />
+  </a>
+  <a href="https://standardjs.com/">
+    <img alt="Standard Code Style Badge" src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" />
+  </a>
+  <a href="https://renovateapp.com/">
+    <img alt="Renovate App Badge" src="https://img.shields.io/badge/renovate-app-blue.svg" />
+  </a>
+</p>
 
-## 安装
+
+## install
 
 ```html
 npm i
 ```
 
-## 开发模式
+## development
 
 ```html
 
@@ -22,12 +33,11 @@ http://localhost:8987 (ssr)
 http://localhost:8988 (csr)
 
 
-该项目启用了 server hot reload。
-在 server 端代码出现编译错误时，server 会陷入一种 fail 状态，改正错误后可能需要在 dev 窗口按 `rs` 回车重启 server 以恢复。
+I used server hot reload, when server fail, input `rs` & press enter to restart server again
 
-## 生产模式
+## production
 
-同开发模式
+same as developent mode
 
 ## TODO
 

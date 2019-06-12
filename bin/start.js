@@ -53,4 +53,8 @@ const clientDevServer = new WebpackDevServer(
   clientCompiler,
   clientConfig.devServer
 )
-clientDevServer.listen(config.project.devServer.port)
+clientDevServer.listen(config.project.devServer.port, err => {
+  if (err) {
+    console.error(err)
+  }
+})

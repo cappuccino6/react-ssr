@@ -8,7 +8,7 @@ const StartServerPlugin = require('start-server-webpack-plugin')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const ManifestPlugin = require('webpack-manifest-plugin')
-// const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const WebpackBar = require('webpackbar')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const postcss = require('../postcss')
@@ -179,6 +179,31 @@ function createWebpackConfig (termimal) {
     externals: [
       isServer && nodeExternals()
     ].filter(Boolean),
+
+    optimization: {
+      minimize: isProdClient,
+      minimizer: [
+        new TerserPlugin({
+          cache: true,
+          parallel: 2,
+          sourceMap: true,
+          terserOptions: {
+            keep_fnames: /^[A-Z]\w+Error$/,
+            safari10: true
+          }
+        })
+      ],
+      concatenateModules: isProdClient,
+      splitChunks: {
+        maxAsyncRequests: 1,
+        cacheGroups: isClient ? {
+          vendors: {
+            test: /node_modules/,
+            name: 'vendors',
+          }
+        } : undefined
+      }
+    },
 
     devServer: {
       allowedHosts: [".localhost"],

@@ -8,7 +8,11 @@ import routes from 'client/pages'
 import { getBuildFile, getAssetPath } from './utils'
 
 function renderTemplate(props) {
-  const template = fs.readFileSync(path.join(__dirname, '../build/client/index.html'), 'utf8');
+  const buildHtml = path.join(__dirname, '../build/client/index.html')
+  const originHtml = path.join(__dirname, '../public/index.html')
+  const hasBuild = fs.existsSync(buildHtml)
+  const templatePath = hasBuild ? buildHtml : originHtml
+  const template = fs.readFileSync(templatePath, 'utf8');
   return Mustache.render(template, props)
 }
 

@@ -1,0 +1,17 @@
+.root {
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  height: 100%;
+  padding: 0 10px;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  color: #1f0505;
+}
+
+.active {
+  color: #0462ce;
+}

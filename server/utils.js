@@ -19,5 +19,6 @@ export const getBuildFile = (filename = 'manifest.json', parse = JSON.parse) => 
 // 获取静态资源地址
 export const getAssetPath = () => {
   const {project: {devServer: {port}}} = packageJson
+  // 部署之后的线上地址待补充
   return isProd ? '' : `//${internalIp.v4.sync()}:${port}/`
 }

@@ -2,7 +2,7 @@
 const debug = require('debug')('ssr:build')
 const webpack = require('webpack')
 const isEmpty = require('lodash/isEmpty')
-const createWebpackConfig = require('../internal/webpackConfig')
+const createWebpackConfig = require('../lib/webpackConfig')
 
 // 启动两条打包流水线
 const termimals = ['client', 'server']

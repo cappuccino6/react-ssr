@@ -17,19 +17,19 @@ app.use(bodyParser({
   jsonLimit: '8mb'
 }))
 
-app.use(
-  favic(path.resolve(__dirname, '../public/favicon.ico'), {
-    maxAge: 1000 * 60 * 10
-  })
-);
-
 // 静态
-app.use(koaStatic(path.join(__dirname, '../build')))
+app.use(koaStatic(path.join(__dirname, '../public')))
 
 // 对所以的路由都返回这个页面了
 router.get('*', async ctx => {
   ctx.body = renderApp(ctx, {})
 })
+
+app.use(
+  favic(path.resolve(__dirname, '../public/favicon.ico'), {
+    maxAge: 1000 * 60 * 10
+  })
+);
 
 app.use(router.routes())
 

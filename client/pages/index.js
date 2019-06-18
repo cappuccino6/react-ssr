@@ -1,7 +1,7 @@
 import React from 'react'
 import {Route, Switch} from 'router'
 import Home from './Home'
-import UserCenter from './UserCenter'
+import Movie from './Movie'
 
 export default () => (
   <Switch>
@@ -10,8 +10,8 @@ export default () => (
       component={Home}
     />
     <Route
-      path="/usercenter"
-      component={UserCenter}
+      path="/movie/high-score"
+      component={Movie}
     />
     <Route
       path="/"

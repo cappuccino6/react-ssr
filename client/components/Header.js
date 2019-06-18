@@ -3,7 +3,7 @@ import Avatar from './Avatar'
 import Navigator from './Navigator'
 import css from './Header.css'
 
-const logo = 'https://b-gold-cdn.xitu.io/v3/static/img/simplify-logo.3e3c253.svg'
+const logo = 'https://img3.doubanio.com/f/sns/0f9e2dbca60b52f595ddbc02073cb4bb879ed1c9/pics/nav/logo_db@2x.png'
 
 class Header extends React.Component {
   render() {

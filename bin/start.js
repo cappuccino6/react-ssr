@@ -7,7 +7,7 @@ const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const open = require('open')
 const path = require('path')
-const webpackConfig = require(path.resolve('internal/webpackConfig'))
+const webpackConfig = require(path.resolve('lib/webpackConfig'))
 const config = require(path.resolve(__dirname, '../package.json'))
 
 // 启动 client 线的编译

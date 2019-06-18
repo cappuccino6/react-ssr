@@ -2,6 +2,7 @@ import Koa from 'koa'
 import path from 'path'
 import debug from 'debug'
 import Router from 'koa-router'
+import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import favic from 'koa-favicon'
 import packageJson from '../package.json'
@@ -22,6 +23,10 @@ app.use(
   })
 );
 
+// 静态
+app.use(koaStatic(path.join(__dirname, '../build')))
+
+// 对所以的路由都返回这个页面了
 router.get('*', async ctx => {
   ctx.body = renderApp(ctx, {})
 })

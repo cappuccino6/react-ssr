@@ -10,9 +10,9 @@ import packageJson from '../package.json'
 const isProd = process.env.NODE_ENV === 'production'
 
 // 读取打包文件
-export const getBuildFile = (filename = 'manifest.json', parse = JSON.parse) => {
-  const filePath = path.resolve(`build/client/${filename}`)
-  const reader = parse(fs.readFileSync(filePath, 'utf8'))
+export const getBuildFile = (filename = 'manifest.json', parser = JSON.parse) => {
+  const filePath = path.resolve(__dirname, `../build/client/${filename}`)
+  const reader = () => parser(fs.readFileSync(filePath, 'utf8'))
   return isProd ? memoize(reader) : reader
 }
 
@@ -20,5 +20,5 @@ export const getBuildFile = (filename = 'manifest.json', parse = JSON.parse) => 
 export const getAssetPath = () => {
   const {project: {devServer: {port}}} = packageJson
   // 部署之后的线上地址待补充
-  return isProd ? '' : `//${internalIp.v4.sync()}:${port}/`
+  return isProd ? `//${internalIp.v4.sync()}:${port}/` : `//${internalIp.v4.sync()}:${port}/`
 }

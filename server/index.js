@@ -17,13 +17,13 @@ app.use(bodyParser({
   jsonLimit: '8mb'
 }))
 
-// 静态
-app.use(koaStatic(path.join(__dirname, '../public')))
-
 // 对所以的路由都返回这个页面了
 router.get('*', async ctx => {
   ctx.body = renderApp(ctx, {})
 })
+
+// 静态
+app.use(koaStatic(path.join(__dirname, '../build')))
 
 app.use(
   favic(path.resolve(__dirname, '../public/favicon.ico'), {

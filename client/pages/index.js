@@ -10,7 +10,7 @@ export default () => (
       component={Home}
     />
     <Route
-      path="/movie/high-score"
+      path="/movie"
       component={Movie}
     />
     <Route

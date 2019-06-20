@@ -1,4 +1,5 @@
 import React from 'react'
+import { withAppContext } from 'hocs/withAppContext'
 import Header from 'components/Header'
 
 class Movie extends React.Component {
@@ -11,4 +12,4 @@ class Movie extends React.Component {
   }
 }
 
-export default Movie
+export default withAppContext()(Movie)

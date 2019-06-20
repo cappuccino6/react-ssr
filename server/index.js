@@ -6,7 +6,9 @@ import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import favic from 'koa-favicon'
 import packageJson from '../package.json'
-import { renderApp } from './App'
+import ReactServer from './App'
+
+const server = new ReactServer()
 
 const log = (target, port) => debug(`dev:${target}  The ${target} side rendering is running at http://localhost:${port}`)
 
@@ -19,7 +21,7 @@ app.use(bodyParser({
 
 // 对所以的路由都返回这个页面了
 router.get('*', async ctx => {
-  ctx.body = renderApp(ctx, {})
+  ctx.body = server.renderApp(ctx, {})
 })
 
 // 静态

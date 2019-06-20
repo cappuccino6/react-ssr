@@ -1,14 +1,14 @@
 import React from 'react'
-import Router from 'router'
-import Pages from 'pages'
+import { BrowserRouter } from 'router'
+import BaseApp from 'lib/baseApp'
 
-class App extends React.Component {
+class App extends BaseApp {
   render() {
     return (
-      <Router>
-        <Pages />
-      </Router>
-    );
+      <BrowserRouter>
+        {this.App}
+      </BrowserRouter>
+    )
   }
 }
 

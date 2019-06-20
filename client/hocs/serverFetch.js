@@ -5,8 +5,6 @@ import hoistNonReactStatics from 'hoist-non-react-statics'
 import {pick, isEmpty} from 'lodash'
 import { withAppContext } from 'hocs/withAppContext'
 
-const isProd = process.env.NODE_ENV === 'production'
-
 const defaultOptions = {
   server: true,
   // 在浏览器端 didMount 和 didUpdate 时默认不触发
@@ -22,7 +20,7 @@ export default function serverFetch (options = {}) {
   const { fetchId } = options
 
   return function serverFetchInner (Component) {
-    if (!isProd && !Component.prototype.getInitialProps) {
+    if (!Component.prototype.getInitialProps) {
       throw new Error(`getInitialProps must be defined`)
     }
     // 注意这里继承的是传入的 Component
@@ -90,8 +88,6 @@ export default function serverFetch (options = {}) {
         })
       }
 
-      refetch = () => this._trigger()
-
       render () {
         const { addFetchProcess } = this.props
         
@@ -112,8 +108,8 @@ export default function serverFetch (options = {}) {
 
     return withAppContext(
       function (appContext) {
-        const ret = pick(appContext, ['addFetchProcess', 'setAppContext'])
-        return Object.assign(ret, (appContext || {})[fetchId])
+        const con = pick(appContext, ['addFetchProcess', 'setAppContext'])
+        return Object.assign(con, (appContext || {})[fetchId])
       }
     )(serverFetchWrapper)
   }

@@ -9,12 +9,14 @@ import serverFetch from 'hocs/serverFetch'
 const fetchId = 'homePage'
 
 class Home extends React.Component {
+  
   getInitialProps() {
     return fetch('http://3darar.com/api/v1/categories')
       .then(res => res)
+      .catch(err => err)
   }
   render() {
-    const {data = {}} = this.props[fetchId] || {}
+    const {data = {}} = this.props[fetchId]
     const {list = []} = data
 
     return (

@@ -10,7 +10,7 @@ const fetchId = 'moviePage'
 
 class Movie extends React.Component {
   getInitialProps() {
-    return fetch('http://3darar.com/api/v1/categories')
+    return Movie.getInitialProps()
   }
 
   render() {
@@ -28,6 +28,9 @@ class Movie extends React.Component {
     );
   }
 }
+
+Movie.getInitialProps = () => fetch('http://3darar.com/api/v1/categories')
+Movie.fetchId = fetchId
 
 export default compose(
   hot(module),

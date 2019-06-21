@@ -5,8 +5,6 @@ import {StaticRouter} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
 import { getBuildFile, getAssetPath } from './utils'
 import template from './template'
-import Pages from 'client/pages'
-import AppContextProvider from 'hocs/withAppContext'
 import renderBaseApp from 'lib/baseApp'
 
 class ReactServer {
@@ -25,14 +23,14 @@ class ReactServer {
     })
   }
 
-  get scripts() {
+  getScripts(ctx) {
     return this.vendorFiles
     .filter(item => path.extname(item) === '.js')
     .map(item => `<script type="text/javascript" src='${getAssetPath()}${item}'></script>`)
-    .reduce((a, b) => a + b, '')
+    .reduce((a, b) => a + b, `<script type="text/javascript">window._INIT_CONTEXT_ = ${JSON.stringify(ctx)}</script>`)
   }
 
-  get css() {
+  getCss() {
     return this.vendorFiles
     .filter(item => path.extname(item) === '.css')
     .map(item => `<link rel="stylesheet" href='${getAssetPath()}${item}' />`)
@@ -53,8 +51,8 @@ class ReactServer {
     return this.renderTemplate({
       title: '豆瓣', 
       html, 
-      scripts: this.scripts, 
-      css: this.css
+      scripts: this.getScripts(context), 
+      css: this.getCss()
     })
   }
 }

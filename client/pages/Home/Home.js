@@ -11,12 +11,19 @@ const fetchId = 'homePage'
 class Home extends React.Component {
 
   getInitialProps() {
-    return fetch('http://3darar.com/api/v1/categories')
+    return Home.getInitialProps()
+  }
+
+  componentDidMount() {
+    console.log(2, this.props)
   }
 
   render() {
     const {data = {}} = this.props[fetchId] || {}
     const {list = []} = data
+
+    console.log(1, this.props)
+
     return (
       <div>
         <Header />

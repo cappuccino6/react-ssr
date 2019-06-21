@@ -51,6 +51,15 @@ app.use(
 
 app.use(router.routes())
 
+// 处理 server hot reload
+if (module.hot) {
+  process.once('SIGUSR2', () => {
+    log('Got HMR signal from webpack StartServerPlugin.')
+  })
+  module.hot.accept()
+  module.hot.dispose(() => server.close())
+}
+
 app.listen(packageJson.project.port, () => {
   log('server', packageJson.project.port)('')
   log('client', packageJson.project.devServer.port)('')

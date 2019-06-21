@@ -50,6 +50,7 @@ export default class AppContextProvider extends React.Component {
   }
 
   render () {
+
     return (
       <AppContext.Provider value={this.state}>
         {this.props.children}

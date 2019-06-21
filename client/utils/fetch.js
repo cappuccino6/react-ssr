@@ -23,7 +23,6 @@ const sendRequest = ({finalOptions, url, finalHeaders, data}) => {
         return reject(res)
       }
     }).catch(err => {
-      console.log('error', err)
       return reject(err)
     })
   })

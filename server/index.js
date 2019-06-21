@@ -7,6 +7,7 @@ import bodyParser from 'koa-bodyparser'
 import favic from 'koa-favicon'
 import packageJson from '../package.json'
 import ReactServer from './App'
+import {routes} from 'client/pages'
 
 const server = new ReactServer()
 
@@ -21,7 +22,22 @@ app.use(bodyParser({
 
 // 对所以的路由都返回这个页面了
 router.get('*', async ctx => {
-  ctx.body = server.renderApp(ctx, {})
+  //  匹配路由  
+  const currentRoute = routes.find(r => r.path === ctx.request.url)
+  const currentComponent = currentRoute.component
+  const { fetchId, getInitialProps } = currentComponent
+
+  // 在服务端获取数据
+  const currentProps = getInitialProps && await getInitialProps()
+
+  const contextProps = {
+    [fetchId]: {
+      data: currentProps,
+      pending: false,
+      error: null
+    }
+  }
+  ctx.body = server.renderApp(ctx, contextProps)
 })
 
 // 静态

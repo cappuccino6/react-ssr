@@ -1,30 +1,35 @@
 /**
- * server 和 client 共享的发请求逻辑
+ * 服务端请求失败时 client 端的发请求逻辑
  */
 import hoistNonReactStatics from 'hoist-non-react-statics'
-import {pick, isEmpty} from 'lodash'
+import {pick} from 'lodash'
 import { withAppContext } from 'hocs/withAppContext'
 
 const defaultOptions = {
-  server: true,
   // 在浏览器端 didMount 和 didUpdate 时默认不触发
-  client: false,
+  client: true,
   // 自动注入获取到的数据至 props 中 ([fetchId], error, pending)，指定一个 id
   fetchId: null
 }
 
-export default function serverFetch (options = {}) {
+export default function moreFetch (options = {}) {
   options = { ...defaultOptions, ...options }
-  const enableAtServer = options.server
   const enableAtClient = options.client
   const { fetchId } = options
 
-  return function serverFetchInner (Component) {
+  return function moreFetchInner (Component) {
+
     if (!Component.prototype.getInitialProps) {
       throw new Error(`getInitialProps must be defined`)
     }
     // 注意这里继承的是传入的 Component
-    class serverFetchWrapper extends Component {
+    class moreFetchWrapper extends Component {
+
+      constructor(props) {
+        super(props)
+        this.getInitialProps = this.getInitialProps.bind(this)
+      }
+
       static defaultProps = {
         [fetchId]: {}
       }
@@ -53,25 +58,20 @@ export default function serverFetch (options = {}) {
           return
         }
         if (typeof this.shouldGetInitialProps === 'function') {
-          if (this.shouldGetInitialProps() && isEmpty(this.props[fetchId])) {
+          if (this.shouldGetInitialProps() && typeof this.getInitialProps === 'function') {
             this._trigger()
           }
         }
       }
 
-      // server 和 client 共享的实际请求发送逻辑
+      // client 的实际请求发送逻辑
       _trigger () {
-        let contextProps = {}
         this._setContextProps({ pending: true })
         return this.getInitialProps()
           .then(data => {
-            contextProps = { pending: false, data, error: null }
-            this._setContextProps(contextProps)
-            return contextProps
+            this._setContextProps({ pending: false, data, error: null })
           }, error => {
-            contextProps = { pending: false, data: {}, error }
-            this._setContextProps(contextProps)
-            return contextProps
+            this._setContextProps({ pending: false, data: {}, error })
           })
       }
 
@@ -80,7 +80,7 @@ export default function serverFetch (options = {}) {
         if (!fetchId) {
           return
         }
-        // server 端必须以函数形式才能拿到最新的 appContext
+
         this.props.setAppContext(appContext => {
           const oldVal = appContext[fetchId] || {}
           const newVal = {[fetchId]: { ...oldVal, ...x }}
@@ -89,28 +89,17 @@ export default function serverFetch (options = {}) {
       }
 
       render () {
-        const { addFetchProcess } = this.props
-        
-        // 服务端发请求的入口
-        if (enableAtServer && addFetchProcess) {
-          if (typeof this.shouldGetInitialProps !== 'function' || this.shouldGetInitialProps()) {
-            addFetchProcess(this._trigger(), fetchId)
-          }
-          if (typeof this.renderForSsrResolve === 'function') {
-            return this.renderForSsrResolve()
-          }
-        }
         return super.render()
       }
     }
 
-    hoistNonReactStatics(serverFetchWrapper, Component)
+    hoistNonReactStatics(moreFetchWrapper, Component)
 
     return withAppContext(
       function (appContext) {
-        const con = pick(appContext, ['addFetchProcess', 'setAppContext'])
+        const con = pick(appContext, ['setAppContext'])
         return Object.assign(con, (appContext || {})[fetchId])
       }
-    )(serverFetchWrapper)
+    )(moreFetchWrapper)
   }
 }

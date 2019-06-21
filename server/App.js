@@ -5,11 +5,13 @@ import {StaticRouter} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
 import { getBuildFile, getAssetPath } from './utils'
 import template from './template'
-import BaseApp from 'lib/baseApp'
+import Pages from 'client/pages'
+import AppContextProvider from 'hocs/withAppContext'
+import renderBaseApp from 'lib/baseApp'
 
-class ReactServer extends BaseApp {
+class ReactServer {
   constructor(props) {
-    super(props)
+    Object.assign(this, props)
   }
 
   get buildFiles() {
@@ -44,7 +46,7 @@ class ReactServer extends BaseApp {
   renderApp(ctx, context) {
     const html = renderToString((
       <StaticRouter location={ctx.url} context={context}>
-        {this.App}
+        {renderBaseApp(context)}
       </StaticRouter>
     ))
 

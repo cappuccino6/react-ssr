@@ -1,12 +1,12 @@
 import React from 'react'
 import { BrowserRouter } from 'router'
-import BaseApp from 'lib/baseApp'
+import renderBaseApp from 'lib/baseApp'
 
-class App extends BaseApp {
+class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        {this.App}
+        {renderBaseApp()}
       </BrowserRouter>
     )
   }

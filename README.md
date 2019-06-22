@@ -41,4 +41,4 @@ same as developent mode
 
 ## TODO
 
-use context Api, make this framework into a monorepo
+make this framework into a monorepo

@@ -18,9 +18,12 @@ class JueJin extends React.Component {
   }
 
   render() {
-    const {data: { data = {} }} = this.props[fetchId] || {}
+    const { data = {} } = this.props[fetchId] || {}
+    const articleData = data.data || {}
 
-    const {articleFeed: {items: {edges = []}}} = data
+    if(!articleData.articleFeed) return null
+
+    const { articleFeed: {items: {edges = []}} } = articleData
 
     return (
       <div className={css.root}>

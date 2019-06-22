@@ -13,7 +13,6 @@ let ssrStyles = []
 class ReactServer {
   constructor(props) {
     Object.assign(this, props)
-    this.ssrStyles = []
   }
 
   get buildFiles() {

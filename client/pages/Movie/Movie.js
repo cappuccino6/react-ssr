@@ -14,22 +14,15 @@ class Movie extends React.Component {
   }
 
   render() {
-    const {data = {}} = this.props[fetchId]
-    const {list = []} = data
-
     return (
       <div>
         <Header />
-        {list.map((item, index) => (
-          <div key={index}>{item.name}</div>
-        ))}
-        this is HomePage
       </div>
     );
   }
 }
 
-Movie.getInitialProps = () => fetch('http://3darar.com/api/v1/categories')
+Movie.getInitialProps = () => fetch('https://movie.douban.com/j/search_subjects?type=movie&tag=%E8%B1%86%E7%93%A3%E9%AB%98%E5%88%86&sort=recommend&page_limit=20&page_start=0')
 Movie.fetchId = fetchId
 
 export default compose(

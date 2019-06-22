@@ -1,7 +1,9 @@
 import React from 'react'
+import {compose} from 'redux' 
 import {withRouter} from 'react-router'
 import JumpLink from './JumpLink'
 import cx from 'classnames'
+import withStyle from 'hocs/withStyle'
 import css from './Navigator.css'
 
 const navs = [
@@ -11,11 +13,12 @@ const navs = [
 
 class Navigator extends React.Component {
   render() {
+    // 用 window.location 跳转的形式，这样会走服务端渲染，解决跨域问题
     const {match: {url}} = this.props
     return (
       <div className={css.root}>
         {navs.map((nav, index) => (
-          <JumpLink to={nav.link} key={index} className={cx(css.nav, {[css.active]: url === nav.link})}>
+          <JumpLink href={nav.link} key={index} className={cx(css.nav, {[css.active]: url === nav.link})}>
             {nav.name}
           </JumpLink>
         ))}
@@ -24,4 +27,7 @@ class Navigator extends React.Component {
   }
 }
 
-export default withRouter(Navigator)
+export default compose(
+  withRouter,
+  withStyle(css)
+)(Navigator)

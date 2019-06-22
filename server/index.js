@@ -24,8 +24,9 @@ app.use(bodyParser({
 router.get('*', async ctx => {
   //  匹配路由  
   const currentRoute = routes.find(r => r.path === ctx.request.url)
-  const currentComponent = currentRoute.component
-  const { fetchId, getInitialProps } = currentComponent
+
+  const currentComponent = currentRoute && currentRoute.component
+  const { fetchId, getInitialProps } = currentComponent || {}
 
   // 在服务端获取数据
   const currentProps = getInitialProps && await getInitialProps()

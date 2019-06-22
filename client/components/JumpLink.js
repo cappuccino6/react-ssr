@@ -19,7 +19,7 @@ class JumpLink extends Component {
       history.push(to)
     }
     if(href) {
-      window.open(href, '__blank')
+      window.location.href = href
     }
   }
 

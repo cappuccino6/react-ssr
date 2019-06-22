@@ -10,6 +10,7 @@ class JumpLink extends Component {
       href, 
       onClick,
       disabled,
+      blank
     } = this.props
     if(onClick) {
       onClick()
@@ -19,7 +20,11 @@ class JumpLink extends Component {
       history.push(to)
     }
     if(href) {
-      window.location.href = href
+      if(blank) {
+        window.open(href, '__blank')
+      } else {
+        window.location.href = href
+      }
     }
   }
 

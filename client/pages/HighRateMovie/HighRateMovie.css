@@ -1,0 +1,11 @@
+.root {
+  margin: 0 auto;
+}
+
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: baseline;
+  margin-top: 20px;
+}

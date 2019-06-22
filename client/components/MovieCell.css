@@ -1,0 +1,31 @@
+.root {
+  --unit: 1vw;
+  display: flex;
+  flex-direction: column;
+  width: 23%;
+  margin-bottom: 20px;
+}
+
+.cover {
+  margin-bottom: 8px;
+  width: 100%;
+  height: calc(var(--unit) * 33);
+  border-radius: 6px;
+}
+
+.title {
+  margin-bottom: 2px;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.rate {
+  font-size: 14px;
+  color: #666;
+}
+
+@media screen and (min-width: 640px) {
+  .root {
+    --unit: 6.4px;
+  }
+}

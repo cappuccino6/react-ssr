@@ -1,20 +1,22 @@
 import React from 'react'
 import {Route, Switch} from 'router'
-import Home from './Home'
-import Movie from './Movie'
+import HighRateMovie from './HighRateMovie'
+import JueJin from './JueJin'
 
 export const routes = [
   {
-    path: '/home',
-    component: Home
+    path: '/high-rate-movie',
+    name: '高分电影',
+    component: HighRateMovie
   },
   {
-    path: '/movie',
-    component: Movie
+    path: '/juejin',
+    name: '掘金',
+    component: JueJin
   },
   {
     path: '/',
-    component: Home
+    component: HighRateMovie
   }
 ]
 

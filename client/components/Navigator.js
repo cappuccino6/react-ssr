@@ -2,14 +2,10 @@ import React from 'react'
 import {compose} from 'redux' 
 import {withRouter} from 'react-router'
 import JumpLink from './JumpLink'
+import {routes} from 'pages'
 import cx from 'classnames'
 import withStyle from 'hocs/withStyle'
 import css from './Navigator.css'
-
-const navs = [
-  {name: '首页', link: '/home'},
-  {name: '高分电影', link: '/movie'},
-]
 
 class Navigator extends React.Component {
   render() {
@@ -17,8 +13,8 @@ class Navigator extends React.Component {
     const {match: {url}} = this.props
     return (
       <div className={css.root}>
-        {navs.map((nav, index) => (
-          <JumpLink href={nav.link} key={index} className={cx(css.nav, {[css.active]: url === nav.link})}>
+        {routes.map((nav, index) => (
+          <JumpLink href={nav.path} key={index} className={cx(css.nav, {[css.active]: url === nav.path})}>
             {nav.name}
           </JumpLink>
         ))}

@@ -10,11 +10,14 @@ class Header extends React.Component {
   render() {
     return (
       <div className={css.root}>
-        <div className={css.left}>
-          <img className={css.logo} src={logo} />
-          <Navigator />
+
+        <div className={css.wrapper}>
+          <div className={css.left}>
+            <img className={css.logo} src={logo} />
+            <Navigator />
+          </div>
+          <Avatar />
         </div>
-        <Avatar />
       </div>
     )
   }

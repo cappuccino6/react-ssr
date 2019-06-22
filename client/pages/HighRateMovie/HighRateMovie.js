@@ -23,7 +23,7 @@ class HighRateMovie extends React.Component {
     const {subjects = []} = data
 
     return (
-      <div>
+      <div className={css.root}>
         <Header />
         <div className={css.movies}>
           {subjects.map((item, index) => (

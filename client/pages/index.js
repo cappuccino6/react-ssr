@@ -11,7 +11,7 @@ export const routes = [
   },
   {
     path: '/juejin',
-    name: '掘金',
+    name: '文章',
     component: JueJin
   },
   {

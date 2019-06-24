@@ -1,4 +1,4 @@
-# 🚀🚀🚀基于 koa 和 context api 的 react ssr 框架
+# 🚀🚀🚀 基于 koa 和 context api 的 react ssr 框架
 
 <p>
   <a href="https://travis-ci.com/jgeschwendt/serverless-react-ssr/">
@@ -13,7 +13,7 @@
 </p>
 
 
-## 🚄安装
+## 🚄 安装
 
 ```html
 git clone https://github.com/zhengyuanbing/react-ssr
@@ -23,17 +23,15 @@ cd react-ssr
 npm i
 ```
 
-## 📦打包
+## 📦 打包
 
 ```html
 
 npm run build
 
-npm run dev
-
 ```
 
-## ✈️开发
+## ✈️ 开发
 
 ```html
 

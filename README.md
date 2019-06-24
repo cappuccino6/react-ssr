@@ -1,4 +1,4 @@
-# React server side rendering framework
+# 🚀🚀🚀基于 koa 和 context api 的 react ssr 框架
 
 <p>
   <a href="https://travis-ci.com/jgeschwendt/serverless-react-ssr/">
@@ -13,32 +13,36 @@
 </p>
 
 
-## install
+## 🚄安装
 
 ```html
+git clone https://github.com/zhengyuanbing/react-ssr
+
+cd react-ssr
+
 npm i
 ```
 
-## development
+## 📦打包
 
 ```html
 
 npm run build
 
 npm run dev
+
 ```
 
-http://localhost:8987 (ssr)
+## ✈️开发
 
-http://localhost:8988 (csr)
+```html
 
+npm run dev
 
-I used server hot reload, when server fail, input `rs` & press enter to restart server again
+http://localhost:8987 (服务端渲染)
 
-## production
+http://localhost:8988 (客户端渲染)
 
-same as developent mode
+项目通过 nodemon 启动，如果开发过程中 crash 了，按 rs 加回车键就可以重启
 
-## TODO
-
-make this framework into a monorepo
+```

@@ -1,6 +1,9 @@
 import axios from 'axios'
+import debug from 'debug'
 import {param} from './url'
 import config from 'config'
+
+const log = debug('FETCH')
 
 const defaults = {
   method: 'GET',
@@ -11,6 +14,7 @@ const isOk = res => res.status >= 200 && res.status < 300
 
 const sendRequest = ({finalOptions, url, finalHeaders, data}) => {
   return new Promise((resolve, reject) => {
+    log(url)
     axios({
       ...finalOptions,
       url: config.apiBaseURL + url,

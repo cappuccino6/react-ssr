@@ -42,7 +42,7 @@ router.get('*', async ctx => {
 })
 
 // 静态
-app.use(koaStatic(path.join(__dirname, '../build')))
+app.use(koaStatic(path.join(__dirname, '../public')))
 
 app.use(
   favic(path.resolve(__dirname, '../public/favicon.ico'), {

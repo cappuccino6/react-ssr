@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf build && export NODE_ENV=production && node bin/build.js",
+    "build": "export NODE_ENV=production && node bin/build.js",
     "dev": "export DEBUG=${DEBUG:-'ssr|csr|dev:*'} && export NODE_ENV=development && nodemon bin/start.js",
     "dev:server": "export DEBUG=${DEBUG:-'ssr:*'} && nodemon build/server/main.js",
-    "clean": "rm -rf build"
+    "clean": "rimraf build"
   },
   "author": "zhengyuanbing",
   "license": "ISC",
@@ -41,6 +41,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.1",
+    "rimraf": "^2.6.3",
     "style-loader": "^0.23.1",
     "webpack-manifest-plugin": "^2.0.4",
     "webpackbar": "^3.2.0"

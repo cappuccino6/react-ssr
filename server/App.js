@@ -2,8 +2,8 @@ import React from 'react'
 import path from 'path'
 import fs from 'fs'
 import Mustache from 'mustache'
-import {StaticRouter} from 'react-router-dom'
-import {renderToString} from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
+import { renderToString } from 'react-dom/server'
 import { getBuildFile, getAssetPath } from './utils'
 import template from './template'
 import renderBaseApp from 'lib/baseApp'
@@ -54,8 +54,8 @@ class ReactServer {
 
   renderApp(ctx, context) {
     const html = renderToString((
-      <StaticRouter location={ctx.url} context={context}>
-        {renderBaseApp({...context, addStyles: this.addStyles, ssrStyles: this.ssrStyles})}
+      <StaticRouter location={ctx.request.url} context={context}>
+        {renderBaseApp({...context, addStyles: this.addStyles})}
       </StaticRouter>
     ))
 

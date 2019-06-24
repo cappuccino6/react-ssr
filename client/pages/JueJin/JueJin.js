@@ -5,7 +5,7 @@ import fetch from 'utils/fetch'
 import Header from 'components/Header'
 import ArticleCell from 'components/ArticleCell'
 import { withAppContext } from 'hocs/withAppContext'
-import moreFetch from 'hocs/moreFetch'
+import clientFetch from 'hocs/clientFetch'
 import withStyle from 'hocs/withStyle'
 import css from './JueJin.css'
 
@@ -59,5 +59,5 @@ export default compose(
   hot(module),
   withAppContext(),
   withStyle(css),
-  moreFetch({fetchId})
+  clientFetch({fetchId})
 )(JueJin)

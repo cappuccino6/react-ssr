@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader'
 import fetch from 'utils/fetch'
 import Header from 'components/Header'
 import { withAppContext } from 'hocs/withAppContext'
-import moreFetch from 'hocs/moreFetch'
+import clientFetch from 'hocs/clientFetch'
 import withStyle from 'hocs/withStyle'
 import {addQuery} from 'utils/url'
 import MovieCell from 'components/MovieCell'
@@ -48,5 +48,5 @@ export default compose(
   hot(module),
   withAppContext(),
   withStyle(css),
-  moreFetch({fetchId})
+  clientFetch({fetchId})
 )(HighRateMovie)

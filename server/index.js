@@ -2,6 +2,7 @@ import Koa from 'koa'
 import path from 'path'
 import debug from 'debug'
 import Router from 'koa-router'
+import {matchPath} from 'react-router-dom'
 import koaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import favic from 'koa-favicon'
@@ -20,10 +21,20 @@ app.use(bodyParser({
   jsonLimit: '8mb'
 }))
 
+const redirectUrl = async (ctx, next) => {
+  await next()
+  if(ctx.request.url === '/') {
+    ctx.redirect(routes[0].path)
+  }
+}
+
+app.use(redirectUrl)
+
 // 对所以的路由都返回这个页面了
-router.get('*', async ctx => {
+router.get('*', async (ctx, next) => {
+  await next()
   //  匹配路由  
-  const currentRoute = routes.find(r => r.path === ctx.request.url)
+  const currentRoute = routes.find(r => matchPath(ctx.request.url, r)) || routes[0]
 
   const currentComponent = currentRoute && currentRoute.component
   const { fetchId, getInitialProps } = currentComponent || {}
@@ -38,6 +49,7 @@ router.get('*', async ctx => {
       error: null
     }
   }
+
   ctx.body = server.renderApp(ctx, contextProps)
 })
 

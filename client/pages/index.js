@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Switch} from 'router'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import HighRateMovie from './HighRateMovie'
 import JueJin from './JueJin'
 
@@ -13,21 +13,12 @@ export const routes = [
     path: '/juejin',
     name: '文章',
     component: JueJin
-  },
-  {
-    path: '/',
-    component: HighRateMovie
   }
 ]
 
 export default () => (
   <Switch>
-    {routes.map(r => (
-      <Route
-        key={r.path}
-        path={r.path}
-        component={r.component}
-      />
-    ))}
+    {routes.map(r => <Route key={r.path} {...r} />)}
+    <Redirect from='*' to={routes[0].path} />
   </Switch>
 )

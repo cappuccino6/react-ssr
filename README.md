@@ -45,7 +45,7 @@ http://localhost:8988 (客户端渲染)
 
 ```
 
-## 🦀️️️🦀️️️🦀️️️项目介绍
+## 🦀️️️🦀️️️🦀️️️ 项目介绍
 
 ![](https://user-gold-cdn.xitu.io/2019/6/23/16b8018353fd6f0a?w=1410&h=1450&f=png&s=2619914)
 
@@ -99,17 +99,15 @@ const TerserPlugin = require('terser-webpack-plugin')
 const WebpackBar = require('webpackbar')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const postcss = require('../postcss')
-const paths = require('./paths')
-const createAlias = require('./alias')
+const alias = require('./alias')
 const config = require('../package.json')
 
 function createEntry(termimal) {
   const isServer = termimal === 'server'
-  const mainEntry = isServer ? paths.appServer : paths.appClient
+  const mainEntry = isServer ? alias.server : alias.client
   return isServer ? {
     main: mainEntry
   } : Object.assign({}, {main: mainEntry}, {
-  // 通用库抽出 vendor
     vendor: [
       'react',
       'react-dom',
@@ -132,12 +130,11 @@ function createWebpackConfig (termimal) {
   return {
     bail: isProd,
     mode: isProd ? 'production' : 'development',
-    target: isServer ? 'node' : 'web',
+    target,
     entry: createEntry(termimal),
     output: {
       filename: `[name]${isProdClient ? '.[chunkhash]' : ''}.js`,
-      // filename: `[name].[chunkhash].js`,
-      path: isServer ? paths.buildServer : paths.buildClient,
+      path: isServer ? alias.buildServer : alias.buildClient,
       publicPath: '',
       libraryTarget: isServer ? 'commonjs2' : 'var',
     },
@@ -146,8 +143,7 @@ function createWebpackConfig (termimal) {
       __filename: true
     },
     resolve: {
-    // alias 配置
-      alias: createAlias()
+      alias
     },
     module: {
       strictExportPresence: true,
@@ -168,7 +164,6 @@ function createWebpackConfig (termimal) {
                     compact: isProdClient,
                     highlightCode: true,
                     presets: [
-                    // babel 单独配置
                       path.resolve(__dirname, './babel'),
                       {}
                     ]
@@ -221,7 +216,7 @@ function createWebpackConfig (termimal) {
       ]
     },
     plugins: [
-    // server 端由 StartServerPlugin 启动
+      /* 启动编译后的 js 文件 */
       isDevServer && new StartServerPlugin({
         name: 'main.js',
         keyboard: true,
@@ -232,7 +227,7 @@ function createWebpackConfig (termimal) {
           {},
           {
             inject: true,
-            template: paths.appHtml,
+            template: alias.baseHtml,
           },
           isProd
             ? {
@@ -263,11 +258,10 @@ function createWebpackConfig (termimal) {
       isClient && new ManifestPlugin({
         writeToFileEmit: true,
         fileName: `manifest.json`
-      })
+      }),
+      false && isClient && new OpenBrowserPlugin({ url: 'http://localhost:8988' })
     ].filter(Boolean),
 
-
-    // server 端配置
     externals: [isServer && nodeExternals()].filter(Boolean),
 
     optimization: {
@@ -311,10 +305,9 @@ function createWebpackConfig (termimal) {
 }
 
 module.exports = createWebpackConfig
-
 ```
 
-📦以上就是项目的 webpack 配置，为了能在全局像
+📦 以上就是项目的 webpack 配置，为了能在全局像
 ```javascript
 import Avatar from 'components/Avatar'
 ```
@@ -375,7 +368,7 @@ serverCompiler.watch({
 
 ![](https://user-gold-cdn.xitu.io/2019/6/17/16b64b4786b34595?w=1102&h=216&f=png&s=89654)
 
-### 💻服务端处理
+### 💻 服务端处理
 
 下面是我的服务端处理，由于引入了 babel，所以我在服务端可以使用 es6 模块
 

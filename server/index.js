@@ -37,16 +37,45 @@ router.get('*', async (ctx, next) => {
   const currentRoute = routes.find(r => matchPath(ctx.request.url, r)) || routes[0]
 
   const currentComponent = currentRoute && currentRoute.component
-  const { fetchId, getInitialProps } = currentComponent || {}
 
-  // 在服务端获取数据
-  const currentProps = getInitialProps && await getInitialProps()
+  const { getInitialProps } = currentComponent || {}
 
-  const contextProps = {
-    [fetchId]: {
-      data: currentProps,
-      pending: false,
-      error: null
+  let contextProps = {}
+
+  if(getInitialProps && Array.isArray(getInitialProps)) {
+    // 多个请求
+    let ajaxs = []
+    let ids = []
+
+    getInitialProps.forEach(_ => {
+      ajaxs.push(_.ajax())
+      ids.push(_.id)
+    })
+
+    const response = await Promise.all(ajaxs)
+
+    ids.forEach((id, index) => {
+      // 通过 Object.defineProperty 将服务端拿到的数据塞到 context 中
+      Object.defineProperty(contextProps, id, {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: {
+          data: response[index],
+          pending: false,
+          error: null
+        }
+      })
+    })
+
+  } else {
+    const {id} = getInitialProps
+    contextProps = {
+      [id]: {
+        data: await getInitialProps.ajax(),
+        pending: false,
+        error: null
+      }
     }
   }
 
@@ -54,7 +83,7 @@ router.get('*', async (ctx, next) => {
 })
 
 // 静态
-app.use(koaStatic(path.join(__dirname, '../public')))
+app.use(koaStatic(path.join(__dirname, '../build')))
 
 app.use(
   favic(path.resolve(__dirname, '../public/favicon.ico'), {

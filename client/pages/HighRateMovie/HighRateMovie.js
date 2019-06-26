@@ -1,24 +1,17 @@
 import React from 'react'
 import { compose } from 'redux'
 import { hot } from 'react-hot-loader'
-import fetch from 'utils/fetch'
 import Header from 'components/Header'
 import { withAppContext } from 'hocs/withAppContext'
-import clientFetch from 'hocs/clientFetch'
+import withFetch from 'hocs/withFetch'
 import withStyle from 'hocs/withStyle'
-import {addQuery} from 'utils/url'
 import MovieCell from 'components/MovieCell'
+import { fetchMovies, fetchArticles } from 'store'
 import css from './HighRateMovie.css'
 
-const fetchId = 'highRateMovie'
-
 class HighRateMovie extends React.Component {
-
-  getInitialProps() {
-    return HighRateMovie.getInitialProps()
-  }
-
   render() {
+    const fetchId = fetchMovies.id
     const {data = {}} = this.props[fetchId] || {}
     const {subjects = []} = data
 
@@ -35,18 +28,9 @@ class HighRateMovie extends React.Component {
   }
 }
 
-HighRateMovie.fetchId = fetchId
-HighRateMovie.getInitialProps = () => fetch(addQuery('https://movie.douban.com/j/search_subjects', {
-  type: 'movie',
-  tag: '豆瓣高分',
-  sort: 'recommend',
-  page_limit: 40,
-  page_start: 0
-}))
-
 export default compose(
   hot(module),
   withAppContext(),
   withStyle(css),
-  clientFetch({fetchId})
+  withFetch([fetchMovies, fetchArticles])
 )(HighRateMovie)

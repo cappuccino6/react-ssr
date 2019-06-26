@@ -16,7 +16,7 @@
 ## 🚄 安装
 
 ```html
-git clone https://github.com/zhengyuanbing/react-ssr
+git clone https://github.com/Fe-Icy/react-ssr
 
 cd react-ssr
 
@@ -711,7 +711,7 @@ export default App
 
 ### 🚄服务端请求失败后如何处理
 
-这里增加了一个 clientFetch 的 hoc，对有异步请求的页面都套上这个 hoc，这个 hoc 的作用是客户端渲染的过程中发现如果没有想要的数据，判定为请求失败，在客户端重新请求一次。
+这里增加了一个 withFetch 的 hoc，对有异步请求的页面都套上这个 hoc，这个 hoc 的作用是客户端渲染的过程中发现如果没有想要的数据，判定为请求失败，在客户端重新请求一次。
 
 ```javascript
 /**
@@ -728,18 +728,18 @@ const defaultOptions = {
   fetchId: null
 }
 
-export default function clientFetch (options = {}) {
+export default function withFetch (options = {}) {
   options = Object.assign({}, defaultOptions, options)
   const { client: shouldFetch, fetchId } = options
 
-  return function clientFetchInner (Component) {
+  return function withFetchInner (Component) {
 
     if (!Component.prototype.getInitialProps) {
       throw new Error(`getInitialProps must be defined`)
     }
 
     // 这里继承的是传入的 Component
-    class clientFetchWrapper extends Component {
+    class withFetchWrapper extends Component {
 
       constructor(props) {
         super(props)
@@ -809,14 +809,14 @@ export default function clientFetch (options = {}) {
       }
     }
 
-    hoistNonReactStatics(clientFetchWrapper, Component)
+    hoistNonReactStatics(withFetchWrapper, Component)
 
     return withAppContext(
       function (appContext) {
         const con = pick(appContext, ['setAppContext'])
         return Object.assign(con, (appContext || {})[fetchId])
       }
-    )(clientFetchWrapper)
+    )(withFetchWrapper)
   }
 }
 

@@ -1,17 +1,17 @@
-/**
- * 目前仅供开发环境下提取 CSS
- */
-
 import React from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 import { withAppContext } from './withAppContext'
 
+function prodWithStyle () {
+  return x => x
+}
+
 function devWithStyle (css) {
   if (typeof window !== 'undefined') {
-    return x => x
+    return s => s
   }
 
-  return function devWithStyleInner (Component) {
+  return function withStyleInner (Component) {
     const componentName = Component.displayName || Component.name
     class CSSWrapper extends React.Component {
       render () {
@@ -29,9 +29,7 @@ function devWithStyle (css) {
   }
 }
 
-function prodwithStyle () {
-  return x => x
-}
+const isProd = process.env.NODE_ENV === 'production'
+const withStyle = isProd ? prodWithStyle : devWithStyle
 
-const withStyle = process.env.NODE_ENV === 'production' ? prodwithStyle : devWithStyle
 export default withStyle

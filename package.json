@@ -6,7 +6,7 @@
   "scripts": {
     "build": "export NODE_ENV=production && node bin/build.js",
     "dev": "export DEBUG=${DEBUG:-'ssr|csr|dev:*'} && export NODE_ENV=development && nodemon bin/start.js",
-    "dev:server": "export DEBUG=${DEBUG:-'ssr:*'} && nodemon build/server/main.js",
+    "prod": "export DEBUG=${DEBUG:-'ssr:*'} && nodemon build/server/main.js",
     "clean": "rimraf build"
   },
   "author": "zhengyuanbing",

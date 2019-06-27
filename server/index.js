@@ -102,7 +102,9 @@ if (module.hot) {
   module.hot.dispose(() => server.close())
 }
 
-app.listen(packageJson.project.port, () => {
+const isProd = process.env.NODE_ENV === 'production'
+
+app.listen(isProd ? 8086 : packageJson.project.port, () => {
   log('server', packageJson.project.port)('')
   log('client', packageJson.project.devServer.port)('')
 })

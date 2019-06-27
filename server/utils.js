@@ -20,5 +20,5 @@ export const getBuildFile = (filename = 'manifest.json', parser = JSON.parse) =>
 export const getAssetPath = () => {
   const {project: {devServer: {port}}} = packageJson
   // 部署之后的线上地址待补充
-  return isProd ? `/build/client/` : `//${internalIp.v4.sync()}:${port}/`
+  return isProd ? `//${internalIp.v4.sync()}:${port}/` : `//${internalIp.v4.sync()}:${port}/`
 }

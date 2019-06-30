@@ -41,7 +41,7 @@ router.get('*', async (ctx, next) => {
   const { getInitialProps } = currentComponent || {}
 
   let contextProps = {}
-
+  
   if(getInitialProps && Array.isArray(getInitialProps)) {
     // 多个请求
     let ajaxs = []

@@ -15,7 +15,12 @@ class JueJin extends React.Component {
     const fetchId = fetchArticles.id
     const { data = {} } = this.props[fetchId] || {}
     const articleData = data.data || {}
-    if(!articleData.articleFeed) return null
+    if(!articleData.articleFeed) return (
+      <div>
+        <Header/>
+        掘金的鉴权改了，api请求不到了，憋着急我回头修改下～～
+      </div>
+    )
     const { articleFeed: {items: {edges = []}} } = articleData
 
     return (

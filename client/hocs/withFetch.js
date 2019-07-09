@@ -2,7 +2,7 @@
  * 服务端请求失败时 client 端的发请求逻辑
  */
 import hoistNonReactStatics from 'hoist-non-react-statics'
-import {pick} from 'lodash'
+import {pick, get} from 'lodash'
 import { withAppContext } from 'hocs/withAppContext'
 
 const shouldFetch = true
@@ -44,9 +44,9 @@ export default function withFetch (initialFetches) {
         if (!shouldFetch) {
           return
         }
-        const waitForFetch = initialFetches.filter(_ => this.props[_.id].pending === undefined)
+        const waitForFetch = initialFetches.filter(_ => get(this.props[_.id], 'pending', undefined) === undefined)
         waitForFetch.forEach(_ => {
-          if(this.props[_.id].pending === undefined) {
+          if(get(this.props[_.id], 'pending', undefined) === undefined) {
             this.fetch(_.id)
           }
         })

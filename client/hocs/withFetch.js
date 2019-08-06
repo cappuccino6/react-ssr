@@ -7,16 +7,16 @@ import { withAppContext } from 'hocs/withAppContext'
 
 const shouldFetch = true
 
-export default function withFetch (initialFetches) {
+export default function withFetch () {
 
   return function withFetchInner (Component) {
 
-    // 在这里显式定义 getInitialProps，让服务端可以抓到请求
+    /* 
+     * 在这里显式定义 getInitialProps，让服务端可以抓到请求
+     * 另外请求需要在组件原型上定义，因为有些请求要用到 props 上的参数
+     */
+    const initialFetches = Component.prototype.getInitialProps()
     Component.getInitialProps = initialFetches
-
-    if(!initialFetches || !Array.isArray(initialFetches)) {
-      throw new Error(`initialFetches must be defined and must be an array`)
-    }
 
     // 这里继承的是传入的 Component
     class withFetchWrapper extends Component {

@@ -10,6 +10,11 @@ import { fetchMovies, fetchArticles } from 'store'
 import css from './HighRateMovie.css'
 
 class HighRateMovie extends React.Component {
+
+  getInitialProps() {
+    return [fetchMovies, fetchArticles]
+  }
+
   render() {
     const fetchId = fetchMovies.id
     const {data = {}} = this.props[fetchId] || {}
@@ -32,5 +37,5 @@ export default compose(
   hot(module),
   withAppContext(),
   withStyle(css),
-  withFetch([fetchMovies, fetchArticles])
+  withFetch()
 )(HighRateMovie)

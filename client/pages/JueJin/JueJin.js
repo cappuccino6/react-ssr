@@ -11,6 +11,10 @@ import css from './JueJin.css'
 
 class JueJin extends React.Component {
 
+  getInitialProps() {
+    return [fetchArticles]
+  }
+
   render() {
     const fetchId = fetchArticles.id
     const { data = {} } = this.props[fetchId] || {}
@@ -40,5 +44,5 @@ export default compose(
   hot(module),
   withAppContext(),
   withStyle(css),
-  withFetch([fetchArticles])
+  withFetch()
 )(JueJin)

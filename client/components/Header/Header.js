@@ -1,6 +1,6 @@
 import React from 'react'
-import Avatar from './Avatar'
-import Navigator from './Navigator'
+import Avatar from '../Avatar'
+import Navigator from '../Navigator'
 import withStyle from 'hocs/withStyle'
 import css from './Header.css'
 

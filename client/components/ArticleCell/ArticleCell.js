@@ -1,6 +1,6 @@
 import React from 'react'
 import withStyle from 'hocs/withStyle'
-import JumpLink from './JumpLink'
+import JumpLink from '../JumpLink'
 import {fromNow} from 'utils/date'
 import {get} from 'lodash'
 import css from './ArticleCell.css'

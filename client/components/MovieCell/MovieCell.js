@@ -1,6 +1,6 @@
 import React from 'react'
 import withStyle from 'hocs/withStyle'
-import JumpLink from './JumpLink'
+import JumpLink from '../JumpLink'
 import css from './MovieCell.css'
 
 class MovieCell extends React.Component {

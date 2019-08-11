@@ -1,11 +1,10 @@
 import React from 'react'
 import { compose } from 'redux'
 import { hot } from 'react-hot-loader'
-import Header from 'components/Header'
 import { withAppContext } from 'hocs/withAppContext'
 import withFetch from 'hocs/withFetch'
 import withStyle from 'hocs/withStyle'
-import MovieCell from 'components/MovieCell'
+import { MovieCell, Header } from 'components'
 import { fetchMovies, fetchArticles } from 'store'
 import css from './HighRateMovie.css'
 
@@ -20,6 +19,7 @@ class HighRateMovie extends React.Component {
     const {data = {}} = this.props[fetchId] || {}
     const {subjects = []} = data
 
+    console.log(this.props)
     return (
       <div className={css.root}>
         <Header />

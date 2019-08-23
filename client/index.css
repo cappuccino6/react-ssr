@@ -18,3 +18,8 @@ body {
 li {
   list-style: none;
 }
+
+/* 图裂标志和边框 */
+img {
+  text-indent: -9999px;
+}

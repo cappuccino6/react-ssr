@@ -19,6 +19,5 @@ export const routes = [
 export default () => (
   <Switch>
     {routes.map(r => <Route key={r.path} {...r} />)}
-    <Redirect from='*' to={routes[0].path} />
   </Switch>
 )

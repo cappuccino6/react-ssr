@@ -11,6 +11,7 @@
   width: 100%;
   height: calc(var(--unit) * 33);
   border-radius: 6px;
+  background-color: #eee;
 }
 
 .title {

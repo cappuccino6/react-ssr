@@ -30,7 +30,7 @@ class ReactServer {
     return this.vendorFiles
     .filter(item => path.extname(item) === '.js')
     .map(item => `<script type="text/javascript" src='${getAssetPath()}${item}'></script>`)
-    .reduce((a, b) => a + b, `<script type="text/javascript">window._INIT_CONTEXT_ = ${JSON.stringify(ctx)}</script>`)
+    .reduce((a, b) => a + b, `<script type="text/javascript">window.INITIAL_STATE = ${JSON.stringify(ctx)}</script>`)
   }
 
   getCss() {

@@ -559,7 +559,7 @@ class ReactServer {
     return this.vendorFiles
     .filter(item => path.extname(item) === '.js')
     .map(item => `<script type="text/javascript" src='${getAssetPath()}${item}'></script>`)
-    .reduce((a, b) => a + b, `<script type="text/javascript">window._INIT_CONTEXT_ = ${JSON.stringify(ctx)}</script>`)
+    .reduce((a, b) => a + b, `<script type="text/javascript">window.INITIAL_STATE = ${JSON.stringify(ctx)}</script>`)
   }
 
 // 服务端渲染初期就把 css 文件添加进来, 由于 isomorphic-style-loader提供给我们了
@@ -678,7 +678,7 @@ export default withStyle(css)(MovieCell)
 大家可能注意到了，我在插入客户端打包后的脚本时，还插入了这样一个脚本
 
 ```javascript
-<script type="text/javascript">window._INIT_CONTEXT_ = ${JSON.stringify(ctx)}</script>
+<script type="text/javascript">window.INITIAL_STATE = ${JSON.stringify(ctx)}</script>
 ```
 
 这是因为同构之前客户端和服务端是两个服务，数据无法共享，我在服务端把数据下发之后，在执行客户端的js过程中又被客户端初始化清空了，可是我数据明明都已经有了啊，这一清空前面不都白做了吗，啊摔...
@@ -690,7 +690,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        {renderBaseApp(window._INIT_CONTEXT_)}
+        {renderBaseApp(window.INITIAL_STATE)}
       </BrowserRouter>
     )
   }

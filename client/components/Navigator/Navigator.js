@@ -7,21 +7,16 @@ import cx from 'classnames'
 import withStyle from 'hocs/withStyle'
 import css from './Navigator.css'
 
-class Navigator extends React.Component {
-  render() {
-    // 用 window.location 跳转的形式，这样会走服务端渲染，解决跨域问题
-    const {match: {url}} = this.props
-    return (
-      <div className={css.root}>
-        {routes.map((nav, index) => (
-          <JumpLink href={nav.path} key={index} className={cx(css.nav, {[css.active]: url === nav.path})}>
-            {nav.name}
-          </JumpLink>
-        ))}
-      </div>
-    )
-  }
-}
+const Navigator = React.memo(({match: {url}}) => (
+  // 用 window.location 跳转的形式，这样会走服务端渲染，解决跨域问题
+  <div className={css.root}>
+    {routes.map((nav, index) => (
+      <JumpLink href={nav.path} key={index} className={cx(css.nav, {[css.active]: url === nav.path})}>
+        {nav.name}
+      </JumpLink>
+    ))}
+  </div>
+))
 
 export default compose(
   withRouter,

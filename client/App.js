@@ -6,7 +6,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        {renderBaseApp(window._INIT_CONTEXT_)}
+        {renderBaseApp(window.INITIAL_STATE)}
       </BrowserRouter>
     )
   }
